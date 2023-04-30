@@ -7,6 +7,9 @@
     ?>
 </head>
 <body class="container">
+<div id="loader-overlay" class="loader-overlay">
+  <div id="loader" class="loader"></div>
+</div>
 <header>
     <div class="row">
         <div class="col header-left">
@@ -21,6 +24,7 @@
     </div>
     <hr>
 </header>
+
 <main>
 
     <form id="product_form" action="/add-product" method="post">
