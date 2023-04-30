@@ -1,0 +1,11 @@
+{
+    "name": "scandiweb/senior-test",
+    "description": "Scandiweb Senior Test",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\" : "app"
+
+        }
+    }
+}
