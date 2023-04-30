@@ -19,7 +19,7 @@ Must Have Doker Installed already
 
 ```sh
 git clone https://github.com/Phoenix-H22/ScandiWeb-Senior-Test.git
-cd docker-compose-lamp
+cd ScandiWeb-Senior-Test/docker-compose-lamp
 docker-compose up -d
 ```
 Visit http://localhost:808/
