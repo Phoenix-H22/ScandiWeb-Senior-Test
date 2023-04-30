@@ -1,5 +1,4 @@
 $(function() {
-    const form = $('#product_form');
     const button = $('#submit-btn');
     const property = $('#properties');
     const productType = $('#productType');
