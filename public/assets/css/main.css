@@ -1,0 +1,109 @@
+main {
+  min-height: calc(100vh - 165px);
+}
+
+footer {
+  text-align: center;
+}
+
+body {
+  background-color: #95c2de;
+}
+
+.red {
+  color: red !important;
+}
+
+.mainbox {
+  background-color: #95c2de;
+  margin: auto;
+  height: 600px;
+  width: 600px;
+  position: relative;
+}
+
+.mainbox .err {
+  color: #ffffff;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 11rem;
+  position: absolute;
+  left: 20%;
+  top: 8%;
+}
+
+.mainbox .far {
+  position: absolute;
+  font-size: 8.5rem;
+  left: 42%;
+  top: 15%;
+  color: #ffffff;
+}
+
+.mainbox .err2 {
+  color: #ffffff;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 11rem;
+  position: absolute;
+  left: 68%;
+  top: 8%;
+}
+
+.mainbox .msg {
+  text-align: center;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 1.6rem;
+  position: absolute;
+  left: 16%;
+  top: 45%;
+  width: 75%;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+input[type=checkbox] {
+  accent-color: red;
+}
+
+.header-left {
+  margin-top: 16px;
+}
+
+.header-right {
+  margin-top: 16px;
+}
+
+.mass-delete {
+  float: right;
+}
+
+.product-card {
+  margin-bottom: 25px;
+}
+
+.product-card .product-card-body {
+  text-align: center !important;
+  margin-bottom: 15px;
+}
+
+.product-card .product-card-body .product-card-text {
+  margin-bottom: 0;
+}
+
+.product-card .delete-checkbox {
+  margin-bottom: 10px;
+}
+
+.description {
+  font-weight: bold;
+  margin-top: 25px;
+  margin-bottom: 15px;
+}
+
+/*# sourceMappingURL=main.css.map */
