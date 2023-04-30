@@ -25,6 +25,10 @@ docker-compose up -d
 Visit http://localhost:808/
 Visi http://localhost:8080/ to see PhpMyAdmin and project database 
 
+##Or
+
+Just Visit https://scandiweb.phoenixtechs.tech/ to see project live and you can see the code from the repository
+
 ## Composer Packages
 
 | Package
