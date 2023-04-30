@@ -1,5 +1,4 @@
 $(function() {
-    const form = $('#product_form');
     const button = $('#submit-btn');
     const property = $('#properties');
     const productType = $('#productType');
@@ -39,7 +38,8 @@ $(function() {
     // Handle form submission
     button.click(function() {
       $('.alert-danger').remove();
-  
+      document.getElementById("loader-overlay").style.display = "block";
+  document.getElementById("loader").style.display = "block";
       // Collect form data
       const formData = {
         sku: $('#sku').val(),
@@ -70,10 +70,14 @@ $(function() {
               `);
               $(`#${index}`).parent().append(errorNotification);
             });
+            document.getElementById("loader-overlay").style.display = "none";
+            document.getElementById("loader").style.display = "none";
             return false;
           } else if (data.status == 'success') {
             // Redirect to homepage on success
             console.log(data);
+            document.getElementById("loader-overlay").style.display = "none";
+            document.getElementById("loader").style.display = "none";
             window.location.href = '/';
           } else {
             console.log(data);

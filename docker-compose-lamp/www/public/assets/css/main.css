@@ -14,6 +14,39 @@ body {
   color: red !important;
 }
 
+.loader-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9998;
+}
+.loader-overlay .loader {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 .mainbox {
   background-color: #95c2de;
   margin: auto;
@@ -21,7 +54,6 @@ body {
   width: 600px;
   position: relative;
 }
-
 .mainbox .err {
   color: #ffffff;
   font-family: "Nunito Sans", sans-serif;
@@ -30,7 +62,6 @@ body {
   left: 20%;
   top: 8%;
 }
-
 .mainbox .far {
   position: absolute;
   font-size: 8.5rem;
@@ -38,7 +69,6 @@ body {
   top: 15%;
   color: #ffffff;
 }
-
 .mainbox .err2 {
   color: #ffffff;
   font-family: "Nunito Sans", sans-serif;
@@ -47,7 +77,6 @@ body {
   left: 68%;
   top: 8%;
 }
-
 .mainbox .msg {
   text-align: center;
   font-family: "Nunito Sans", sans-serif;
@@ -62,7 +91,6 @@ a {
   text-decoration: none;
   color: white;
 }
-
 a:hover {
   text-decoration: underline;
 }
@@ -86,16 +114,13 @@ input[type=checkbox] {
 .product-card {
   margin-bottom: 25px;
 }
-
 .product-card .product-card-body {
   text-align: center !important;
   margin-bottom: 15px;
 }
-
 .product-card .product-card-body .product-card-text {
   margin-bottom: 0;
 }
-
 .product-card .delete-checkbox {
   margin-bottom: 10px;
 }
@@ -104,6 +129,4 @@ input[type=checkbox] {
   font-weight: bold;
   margin-top: 25px;
   margin-bottom: 15px;
-}
-
-/*# sourceMappingURL=main.css.map */
+}/*# sourceMappingURL=main.css.map */
