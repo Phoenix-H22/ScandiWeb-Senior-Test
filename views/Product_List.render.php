@@ -15,8 +15,7 @@
         <div class="col header-right ">
            <div class="row float-end">
             <div class="col-6">
-            <a class="btn btn-primary float-end" href="/add-product">ADD</a>
-                
+            <a class="btn btn-primary float-end" href="/add-product">ADD</a>     
             </div>
             <div class="col-6">
             <a class="btn btn-danger" id="delete-product-btn">MASS DELETE</a>
@@ -46,6 +45,7 @@
                                 <p class="product-card-text"><?= $product['price'] . ' $'; ?></p>
                                 <p class="product-card-text"><?= $product['property']; ?></p>
                             </div>
+                            <a class="btn btn-primary float-end" href="/edit-product/<?= $product['id']; ?>">EDIT</a>
                             <label>
                                 <input type="checkbox" class="delete-checkbox" name="product-<?= $product['id']; ?>" value="<?= $product['id']; ?>">
                             </label>

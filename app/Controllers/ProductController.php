@@ -81,7 +81,12 @@ class ProductController extends Controller
         echo json_encode(['status' => 'success']);      
         
     }
-
+    public function edit($id)
+    {   
+        $id = Validation::filter($id);
+        $product = new Product();
+        $this->render('Product_Edit', $product->find($id[0]));
+    }
     public function delete()
     {
         $request = Validation::filter($_REQUEST);

@@ -52,6 +52,24 @@ abstract class Model extends Database
         $products->execute($this->bindings);
         return $products->fetchAll();
     }
+    public function update(array $request)
+    {
+        $products = $this->pdo->prepare("UPDATE $this->tableName SET sku = :sku, name = :name, price = :price, type = :type, property = :property WHERE id = :id");
+        $products->bindParam('id', $request['id']);
+        $products->bindParam('sku', $request['sku']);
+        $products->bindParam('name', $request['name']);
+        $products->bindParam('price', $request['price']);
+        $products->bindParam('type', $request['productType']);
+        $products->bindParam('property', $request['property']);
+        $products->execute();
+    }
+    public function find($id)
+    {
+        $products = $this->pdo->prepare("SELECT * FROM $this->tableName WHERE id = :id");
+        $products->bindParam('id', $id);
+        $products->execute();
+        return $products->fetch();
+    }
 
     public function delete(array $request)
     {
