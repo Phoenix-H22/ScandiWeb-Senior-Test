@@ -24,6 +24,21 @@ docker-compose up -d
 ```
 Visit http://localhost:808/
 Visi http://localhost:8080/ to see PhpMyAdmin and project database 
+## Or
+
+You can Run it with apache or nginx server
+| Requirement
+| ------
+| PHP 8.1
+| MySql
+| Apache or Nginx
+| Server Root Must Be inside public folder
+
+You will Need To configure your database connection in app/config.php file
+then import the database you will find it in the root folder of the project
+
+### Note
+You won't be able to run the project if server root isn't inside public folder
 
 ## Or
 
