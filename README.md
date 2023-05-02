@@ -11,6 +11,8 @@
 - No Use of any framework except Bootstrap and Jquery Library in FrontEnd
 - All pages Are responsive
 - Only 2 REST API endpoints for product add and product get actions.
+- All pages are dynamic and data is fetched from database
+- Add Edit feature for products (Not Required)
 
 
 ## Installation
