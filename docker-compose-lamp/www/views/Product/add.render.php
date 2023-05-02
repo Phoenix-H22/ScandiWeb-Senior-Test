@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <?php
-    $title = 'Product Edit';
+    $title = 'Product Add';
     include ROOT . '/views/layouts/header.render.php';
     ?>
 </head>
@@ -26,13 +26,13 @@
 </header>
 
 <main>
-<?php print_r($data) ?>
+
     <form id="product_form" action="/add-product" method="post">
         <div class="col-sm-6">
             <div class="mb-3 row">
                 <label for="sku" class="col-sm-2 col-form-label">SKU <span class="red">*</span></label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" name="sku" id="sku" value="<?= $data["sku"] ?>" required>
+                    <input type="text" class="form-control" name="sku" id="sku" required>
                 </div>
                 
             </div>
@@ -41,7 +41,7 @@
             <div class="mb-3 row">
                 <label for="name" class="col-sm-2 col-form-label">Name <span class="red">*</span></label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" name="name" id="name" value="<?= $data["name"] ?>" required>
+                    <input type="text" class="form-control" name="name" id="name" required>
                 </div>
             </div>
         </div>
@@ -49,7 +49,7 @@
             <div class="mb-3 row">
                 <label for="price" class="col-sm-2 col-form-label">Price ($) <span class="red">*</span></label>
                 <div class="col-sm-6">
-                    <input type="number" class="form-control" name="price" id="price" value="<?= $data["price"] ?>" required> 
+                    <input type="number" class="form-control" name="price" id="price" required> 
                 </div>
             </div>
         </div>
@@ -58,8 +58,8 @@
                 <label for="productType" class="col-sm-2 col-form-label">Product Type <span class="red">*</span></label>
                 <div class="col-sm-4">
                     <select class="form-control" name="productType" id="productType" required>
-                        <option value="" disabled>Type</option>
-                        <option <?php $data["type"] == "dvd" ?? selected ?> value="dvd">DVD</option>
+                        <option value="" selected disabled>Type</option>
+                        <option value="dvd">DVD</option>
                         <option value="book">Book</option>
                         <option value="furniture">Furniture</option>
                     </select>

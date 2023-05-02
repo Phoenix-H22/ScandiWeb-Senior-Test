@@ -1,4 +1,4 @@
-$(function() {
+$(document).ready(function() {
     const button = $('#submit-btn');
     const property = $('#properties');
     const productType = $('#productType');
@@ -21,12 +21,12 @@ $(function() {
     });
   
     // Add a new property input to the form
-    function addPropertyInput(labelText, inputName, descriptionText = '') {
+    function addPropertyInput(labelText, inputName, descriptionText = '',value= "") {
       const propertyInput = $(`
         <div class="mb-3 row">
           <label for="${inputName}" class="col-sm-2 col-form-label">${labelText} <span class="red">*</span></label>
           <div class="col-sm-4">
-            <input type="number" class="form-control" name="${inputName}" id="${inputName}" required>
+            <input type="number" class="form-control" name="${inputName}" value="${value}" id="${inputName}" required>
           </div>
           <p class="description">${descriptionText}</p>
         </div>
@@ -75,12 +75,11 @@ $(function() {
             return false;
           } else if (data.status == 'success') {
             // Redirect to homepage on success
-            console.log(data);
             document.getElementById("loader-overlay").style.display = "none";
             document.getElementById("loader").style.display = "none";
             window.location.href = '/';
           } else {
-            console.log(data);
+            alert('Something went wrong. Please, try again later.');
           }
         }
       });

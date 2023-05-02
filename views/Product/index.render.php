@@ -32,6 +32,12 @@
         </div>
         <?php unset($_SESSION['success']); ?>
     <?php endif; ?>
+    <?php if (isset($_SESSION['error'])) : ?>
+        <div class="alert alert-danger" role="alert">
+            <?= $_SESSION['error']; ?>
+        </div>
+        <?php unset($_SESSION['error']); ?>
+    <?php endif; ?>
     <form id="product_form" action="/" method="post">
         <div class="row">
             <?php foreach ($data as $product) : ?>

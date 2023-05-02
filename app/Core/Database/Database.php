@@ -4,6 +4,7 @@ namespace App\Core\Database;
 
 use PDO;
 use PDOException;
+use App\Core\Errors\Errors;
 
 class Database
 {
@@ -32,7 +33,7 @@ class Database
             $options = [PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC];
             return $this->pdo = new PDO($connect, $this->username, $this->password, $options);
         } catch (PDOException $message) {
-            http_response_code(500);
+            Errors::E500();
             return die('Database Connection Error: ' . $message->getMessage() . ' (check database connection ==> config / app.php)');
         }
     }

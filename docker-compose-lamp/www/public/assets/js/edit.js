@@ -2,21 +2,29 @@ $(document).ready(function() {
     const button = $('#submit-btn');
     const property = $('#properties');
     const productType = $('#productType');
-    
+    if (type == 'dvd') {
+      addPropertyInput('Size (MB)', 'size', 'Please, provide size in MB',size);
+    } else if (type == 'book') {
+      addPropertyInput('Weight (KG)', 'weight', 'Please, provide weight in KG',weight);
+    } else if (type == 'furniture') {
+      addPropertyInput('Height (CM)', 'height',"",height);
+      addPropertyInput('Width (CM)', 'width',"",width);
+      addPropertyInput('Length (CM)', 'length', 'Please, provide dimensions in HxWxL',length);
+    }
     // Handle product type change
     productType.change(function() {
       property.empty();
   
-      const type = productType.val();
+      const typeValue = productType.val();
   
-      if (type == 'dvd') {
-        addPropertyInput('Size (MB)', 'size', 'Please, provide size in MB');
-      } else if (type == 'book') {
-        addPropertyInput('Weight (KG)', 'weight', 'Please, provide weight in KG');
-      } else if (type == 'furniture') {
-        addPropertyInput('Height (CM)', 'height');
-        addPropertyInput('Width (CM)', 'width');
-        addPropertyInput('Length (CM)', 'length', 'Please, provide dimensions in HxWxL');
+      if (typeValue == 'dvd' || (type == 'DVD' && size != "")) {
+        addPropertyInput('Size (MB)', 'size', 'Please, provide size in MB',size);
+      } else if (typeValue == 'book' || (type == 'Book' && weight != "")) {
+        addPropertyInput('Weight (KG)', 'weight', 'Please, provide weight in KG',weight);
+      } else if (typeValue == 'furniture' || (type == 'furniture' && height != "" && width != "" && length != "")) {
+        addPropertyInput('Height (CM)', 'height',"",height);
+        addPropertyInput('Width (CM)', 'width',"",width);
+        addPropertyInput('Length (CM)', 'length', 'Please, provide dimensions in HxWxL',length);
       }
     });
   
@@ -39,7 +47,7 @@ $(document).ready(function() {
     button.click(function() {
       $('.alert-danger').remove();
       document.getElementById("loader-overlay").style.display = "block";
-  document.getElementById("loader").style.display = "block";
+      document.getElementById("loader").style.display = "block";
       // Collect form data
       const formData = {
         sku: $('#sku').val(),
@@ -52,13 +60,12 @@ $(document).ready(function() {
         width: $('#width').val(),
         length: $('#length').val(),
       };
-  
       // Send form data via AJAX
+   
       $.ajax({
-        method: 'POST',
-        url: '/add-product',
+        url: `/edit-product/${id}`,
+        type: 'post',
         data: formData,
-  
         success: function(data) {
           if (data.status == 'error') {
             // Display error messages
@@ -83,6 +90,7 @@ $(document).ready(function() {
           }
         }
       });
+      
     });
   });
   

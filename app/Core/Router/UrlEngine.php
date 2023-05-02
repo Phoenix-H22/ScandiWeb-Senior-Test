@@ -6,7 +6,13 @@ trait UrlEngine
 {
     public function method()
     {
-        return strtolower($_SERVER['REQUEST_METHOD']);
+        if($_SERVER['REQUEST_METHOD'] == 'PUT'){
+            return 'post';
+        }else if($_SERVER['REQUEST_METHOD'] == 'DELETE'){
+            return 'post';
+        }else{
+            return strtolower($_SERVER['REQUEST_METHOD']);
+        }
     }
 
     public function path()
@@ -29,7 +35,15 @@ trait UrlEngine
         $params = explode('/', $params);
         $params = array_filter($params);
         $params = array_slice($params, 1);
-        return $params??null;
+        if($params){
+            $params["id"] = $params[0]??null;
+            if($params["id"]!=null){
+                unset($params[0]);
+            }
+        }else{
+            $params = null;
+        }
+        return $params;
     }
     
 }

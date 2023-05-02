@@ -9,4 +9,9 @@ class Book extends Product
         $request['property'] = 'Weight: ' . $request['weight'] . 'KG';
         $this->create($request);
     }
+    public function updateRow($request)
+    {
+        $request['property'] = 'Weight: ' . $request['weight'] . 'KG';
+        $this->update($request);
+    }
 }
