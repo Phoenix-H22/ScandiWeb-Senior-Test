@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Models;
+/**
+ * Book class is responsible for create, update, delete and get all books
+ */
 
 class Book extends Product
 {

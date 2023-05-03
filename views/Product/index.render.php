@@ -32,16 +32,20 @@
         </div>
         <?php unset($_SESSION['success']); ?>
     <?php endif; ?>
-    <?php if (isset($_SESSION['error'])) : ?>
+    <?php if (isset($_SESSION['errors']) && !empty($_SESSION['errors'])) : ?>
         <div class="alert alert-danger" role="alert">
-            <?= $_SESSION['error']; ?>
+            <?php foreach ($_SESSION['errors'] as $error) : ?>
+                <?php foreach ($error as $message) : ?>
+                    <p><?= $message; ?></p>
+                <?php endforeach; ?>
+            <?php endforeach; ?>
         </div>
-        <?php unset($_SESSION['error']); ?>
+        <?php unset($_SESSION['errors']); ?>
     <?php endif; ?>
     <form id="product_form" action="/" method="post">
         <div class="row">
             <?php foreach ($data as $product) : ?>
-                <div class="col-sm-3 card-<?= $product['id']; ?>">
+                <div class="col-xl-3 col-md-4 col-sm-4 card-<?= $product['id']; ?>">
                     <div class="card product-card hvr-round-corners hvr-border-fade hvr-grow">
                         <div class="card-body">
                             
@@ -51,7 +55,7 @@
                                 <p class="product-card-text"><?= $product['price'] . ' $'; ?></p>
                                 <p class="product-card-text"><?= $product['property']; ?></p>
                             </div>
-                            <a class="btn btn-primary float-end" href="/edit-product/<?= $product['id']; ?>">EDIT</a>
+                            <a class="btn btn-warning float-end" href="/edit-product/<?= $product['id']; ?>">EDIT</a>
                             <label>
                                 <input type="checkbox" class="delete-checkbox" name="product-<?= $product['id']; ?>" value="<?= $product['id']; ?>">
                             </label>

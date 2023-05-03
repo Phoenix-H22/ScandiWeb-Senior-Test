@@ -1,9 +1,17 @@
 <?php
 
 namespace App\Core\Router;
+/**
+ * trait UrlEngine is responsible for getting the request method, path and params
+ */
 
 trait UrlEngine
 {
+    /**
+     * method method is responsible for getting the request method
+     *
+     * @return string
+     */
     public function method()
     {
         if($_SERVER['REQUEST_METHOD'] == 'PUT'){
@@ -14,6 +22,11 @@ trait UrlEngine
             return strtolower($_SERVER['REQUEST_METHOD']);
         }
     }
+    /**
+     * path method is responsible for getting the request path
+     *
+     * @return string
+     */
 
     public function path()
     {
@@ -28,7 +41,11 @@ trait UrlEngine
         }
         return $path;
     }
-    // params like /edit-product/1
+    /**
+     * params method is responsible for getting the request params
+     *
+     * @return array
+     */
     public function params()
     {
         $params = $_SERVER['REQUEST_URI'];
