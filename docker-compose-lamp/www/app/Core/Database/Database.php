@@ -5,22 +5,29 @@ namespace App\Core\Database;
 use PDO;
 use PDOException;
 use App\Core\Errors\Errors;
+/**
+ * Database class is responsible for handling all database related operations
+ */
 
 class Database
 {
+    /**
+     * @var PDO
+     */
     protected $pdo;
     protected string $hostname;
     protected string $port;
     protected string $db_name;
     protected string $username;
     protected string $password;
-
+    /**
+     * Database constructor
+     */
     public function __construct()
     {
         $this->pdo = $this->connect();
     }
-
-    private function connect()
+    private function connect() 
     {
         $this->hostname = DB_HOST;
         $this->port = DB_PORT;

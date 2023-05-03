@@ -3,13 +3,22 @@
 namespace App\Core\Model;
 
 use App\Core\Database\Database;
+use App\Core\Interfaces\ModelInterface;
+/**
+ * abstract class Model is responsible for creating a contract for models
+ */
 
-abstract class Model extends Database
+abstract class Model extends Database implements ModelInterface
 {
     protected string $tableName ="products";
     protected string $query;
     protected array $bindings = [];
     public static $instance = null;
+    /**
+     * all method is responsible for returning all products
+     *
+     * @return array
+     */
 
     public function all(): array
     {
@@ -17,6 +26,12 @@ abstract class Model extends Database
         $products->execute();
         return $products->fetchAll();
     }
+    /**
+     * create method is responsible for creating a new product
+     *
+     * @param array $request
+     * @return void
+     */
 
     public function create(array $request)
     {
@@ -31,6 +46,12 @@ abstract class Model extends Database
 
         }
     }
+    /**
+     * select method is responsible for selecting a specific column from a table
+     *
+     * @param string $name
+     * @return object
+     */
     public static function select($name = '*')
     {
         $instance = new static();
@@ -39,6 +60,13 @@ abstract class Model extends Database
         self::$instance = $instance;
         return $instance;
     }
+    /**
+     * where method is responsible for selecting a specific row from a table
+     *
+     * @param string $name
+     * @param string $value
+     * @return object
+     */
     public static function where($name, $value)
     {
 
@@ -46,12 +74,25 @@ abstract class Model extends Database
         self::$instance->bindings = [$name => $value];
         return self::$instance;
     }
+    /**
+     * andWhere method is responsible for selecting a specific row from a table
+     *
+     * @param string $name
+     * @param string $value
+     * @return object
+     */
     public function get()
     {
         $products = $this->pdo->prepare($this->query);
         $products->execute($this->bindings);
         return $products->fetchAll();
     }
+    /**
+     * update method is responsible for updating a specific product
+     *
+     * @param array $request
+     * @return void
+     */
     public function update(array $request)
     {
         $products = $this->pdo->prepare("UPDATE $this->tableName SET sku = :sku, name = :name, price = :price, type = :type, property = :property WHERE id = :id");
@@ -63,6 +104,12 @@ abstract class Model extends Database
         $products->bindParam('property', $request['property']);
         $products->execute();
     }
+    /**
+     * find method is responsible for finding a specific product
+     *
+     * @param integer $id
+     * @return array
+     */
     public function find($id)
     {
         $products = $this->pdo->prepare("SELECT * FROM $this->tableName WHERE id = :id");
@@ -70,6 +117,12 @@ abstract class Model extends Database
         $products->execute();
         return $products->fetch();
     }
+    /**
+     * delete method is responsible for deleting a specific product
+     *
+     * @param array $request
+     * @return void
+     */
 
     public function delete(array $request)
     {

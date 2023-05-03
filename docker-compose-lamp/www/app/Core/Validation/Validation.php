@@ -3,9 +3,18 @@
 namespace App\Core\Validation;
 
 use App\Core\Controller\Controller;
+/**
+ * Validation class is responsible for validating data
+ */
 
 class Validation extends Controller
 {
+    /**
+     * validate method is responsible for validating data
+     *
+     * @param array $data
+     * @return void
+     */
     public static function validate(array $data)
 {
     $errors = [];
@@ -45,6 +54,15 @@ class Validation extends Controller
                         $errors[$field] = "The $field field must be a number";
                     }
                     break;
+                case "exists":
+                    $model = 'App\\Models\\' . $parameterString;
+                    $instance = new $model();
+                    $result = $instance->select($field)->where($field, $value)->get();
+
+                    if (!$result) {
+                        $errors[$field] = "This $field does not exist";
+                    }
+                    break;
 
                 default:
                     break;
@@ -56,7 +74,12 @@ class Validation extends Controller
         $_SESSION['errors'][] = $errors;
     }
 }
-// Method to filter input data
+/**
+ * filter method is responsible for filtering data
+ *
+ * @param array $data
+ * @return array
+ */
 public static function filter(array $data)
 {
     $filteredData = [];

@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Models;
+/**
+ * DVD class is responsible for create, update, delete and get all DVDs
+ */
 
 class Dvd extends Product
 {
