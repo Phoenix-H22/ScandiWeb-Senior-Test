@@ -10,6 +10,10 @@ body {
   background-color: #95c2de;
 }
 
+hr {
+  margin: 0.6rem !important;
+}
+
 .red {
   color: red !important;
 }

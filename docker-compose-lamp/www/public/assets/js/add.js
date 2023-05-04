@@ -38,6 +38,7 @@ $(document).ready(function() {
     // Handle form submission
     button.click(function() {
       $('.alert-danger').remove();
+      $('.alert-success').remove();
       document.getElementById("loader-overlay").style.display = "block";
   document.getElementById("loader").style.display = "block";
       // Collect form data
@@ -68,16 +69,26 @@ $(document).ready(function() {
                   <p>${value}</p>
                 </div>
               `);
+              
               $(`#${index}`).parent().append(errorNotification);
             });
             document.getElementById("loader-overlay").style.display = "none";
             document.getElementById("loader").style.display = "none";
             return false;
           } else if (data.status == 'success') {
+            // Clear the form
+            $('#product_form').trigger('reset');
+            property.empty();
+            // Display success message
+            const successNotification = $(`
+                <div class="alert alert-success" role="alert">
+                <p>${data.message}</p>
+                </div>
+              `);
             // Redirect to homepage on success
             document.getElementById("loader-overlay").style.display = "none";
             document.getElementById("loader").style.display = "none";
-            window.location.href = '/';
+            $(`main`).prepend(successNotification);
           } else {
             alert('Something went wrong. Please, try again later.');
           }

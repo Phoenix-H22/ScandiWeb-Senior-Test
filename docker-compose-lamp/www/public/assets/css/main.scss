@@ -11,6 +11,9 @@ footer {
 body {
   background-color: #95c2de;
 }
+hr{
+  margin: 0.6rem !important;
+}
 .red {
   color: red !important;
 }
@@ -53,7 +56,7 @@ body {
   height: 600px;
   width: 600px;
   position: relative;
-  
+
   .err {
     color: #ffffff;
     font-family: 'Nunito Sans', sans-serif;

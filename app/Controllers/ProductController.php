@@ -124,9 +124,8 @@ class ProductController extends Controller implements ProductInterface
             $product = $this->model(ucfirst($productType));
             $product->add($request);
             // Set success message and return json response with success status
-            $_SESSION['success'] = 'Product added successfully';
             header('Content-type: application/json');
-            echo json_encode(['status' => 'success']);
+            echo json_encode(['status' => 'success', 'message' => "Product added successfully"]);
         }
 
     }
@@ -186,9 +185,8 @@ class ProductController extends Controller implements ProductInterface
             $product = $this->model(ucfirst($productType));
             $product->updateRow($request);
             // Set success message and redirect to homepage
-            $_SESSION['success'] = 'Product updated successfully';
             header('Content-type: application/json');
-            echo json_encode(['status' => 'success']);
+            echo json_encode(['status' => 'success', 'message' => "Product updated successfully"]);
         }
     }
     /**

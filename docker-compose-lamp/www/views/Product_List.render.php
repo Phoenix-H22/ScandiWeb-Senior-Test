@@ -3,7 +3,7 @@
 <head>
     <?php
     $title = 'Products List';
-    include ROOT . '/views/layouts/header.render.php';
+    include ROOT . '/views/layout/header.render.php';
     ?>
 </head>
 <body class="container">
@@ -56,7 +56,7 @@
         </div>
     </form>
 </main>
-<?php include ROOT . '/views/layouts/footer.render.php'; ?>
+<?php include ROOT . '/views/layout/footer.render.php'; ?>
 <script src="<?=BASE_URL . 'assets/js/main.js'?>"></script>
 </body>
 </html>

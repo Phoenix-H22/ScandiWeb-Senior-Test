@@ -3,7 +3,7 @@
 <head>
     <?php
     $title = 'Product Add';
-    include ROOT . '/views/layouts/header.render.php';
+    include ROOT . '/views/layout/header.render.php';
     ?>
 </head>
 <body class="container">
@@ -70,7 +70,7 @@
     </form>
 </main>
 <?php unset($_SESSION['errors']); ?>
-<?php include ROOT . '/views/layouts/footer.render.php'; ?>
+<?php include ROOT . '/views/layout/footer.render.php'; ?>
 <script src="<?=BASE_URL . 'assets/js/add.js'?>"></script>
 </body>
 </html>
