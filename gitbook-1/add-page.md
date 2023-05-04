@@ -1,6 +1,6 @@
 # Add Page
 
-<figure><img src=".gitbook/assets/image (4).png" alt=""><figcaption><p>Product Add Page</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption><p>Product Add Page</p></figcaption></figure>
 
 Main Functionalities:
 
@@ -12,9 +12,9 @@ Main Functionalities:
    * Check if price and product type properties are numeric.
    * List Error of each input below it
 3. Product Type Properties Fields changed dynamically depend on type with jQuery
-   * ![](<.gitbook/assets/image (2).png>)
-   * ![](<.gitbook/assets/image (1).png>)
-   * ![](<.gitbook/assets/image (5).png>)
+   * ![](<../.gitbook/assets/image (2).png>)
+   * ![](<../.gitbook/assets/image (1).png>)
+   * ![](<../.gitbook/assets/image (5).png>)
 4. Request **Scenario:**
    1. after you click on save button ajax request are sent with value of every field.
    2. In Backend, i validate all fields with validations i said before and reply with a response with errors if exists

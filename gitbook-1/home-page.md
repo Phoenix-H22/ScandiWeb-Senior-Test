@@ -1,6 +1,6 @@
 # Home Page
 
-<figure><img src=".gitbook/assets/image.png" alt=""><figcaption><p>Home Page</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption><p>Home Page</p></figcaption></figure>
 
 Main Functionalities:
 

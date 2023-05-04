@@ -1,6 +1,6 @@
 # Edit Page
 
-<figure><img src=".gitbook/assets/image (3).png" alt=""><figcaption><p>Edit Page - Edit Pages URL be like  /edit-product/39 - 39 is the id of the product</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption><p>Edit Page - Edit Pages URL be like  /edit-product/39 - 39 is the id of the product</p></figcaption></figure>
 
 Main Functionalities:
 
