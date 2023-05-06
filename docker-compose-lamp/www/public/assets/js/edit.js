@@ -90,7 +90,8 @@ $(document).ready(function() {
             // Redirect to homepage on success
             document.getElementById("loader-overlay").style.display = "none";
             document.getElementById("loader").style.display = "none";
-            $(`main`).prepend(successNotification);
+            window.location.href = "/edit-product/"+id;
+            // $(`main`).prepend(successNotification);
           } else {
             alert('Something went wrong. Please, try again later.');
           }

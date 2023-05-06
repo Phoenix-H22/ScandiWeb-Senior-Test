@@ -63,6 +63,11 @@ class Validation extends Controller
                         $errors[$field] = "This $field does not exist";
                     }
                     break;
+                case "notNegative":
+                    if ($value < 0) {
+                        $errors[$field] = "The $field field must be positive";
+                    }
+                    break;
 
                 default:
                     break;
@@ -89,6 +94,7 @@ public static function filter(array $data)
         $filteredData[$field] = stripslashes($value);
         $filteredData[$field] = htmlspecialchars($value,ENT_QUOTES, 'UTF-8');
         $filteredData[$field] = strip_tags($value);
+        $filteredData[$field] = preg_replace('/[^\p{L}\p{N}\s]/u', '', $value);
     }
     return $filteredData;
 
