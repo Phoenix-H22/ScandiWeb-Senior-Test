@@ -26,6 +26,12 @@
 </header>
 
 <main>
+<?php if (isset($_SESSION['success'])) : ?>
+        <div class="alert alert-success" role="alert">
+            <?= $_SESSION['success']; ?>
+        </div>
+        <?php unset($_SESSION['success']); ?>
+    <?php endif; ?>
     <form id="product_form" action="/add-product" method="post">
         <div class="col-sm-6">
             <div class="mb-3 row">

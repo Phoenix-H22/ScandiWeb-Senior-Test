@@ -57,7 +57,7 @@ class ProductController extends Controller implements ProductInterface
         $validationRules = [
             'productType' => [$productType, 'required'],
             'name' => [$name, 'required'],
-            'price' => [$price, 'required|numeric'],
+            'price' => [$price, 'required|numeric|nonNegative'],
         ];
         // Check if the request is update or create
         if ($isUpdate) {
@@ -69,7 +69,7 @@ class ProductController extends Controller implements ProductInterface
                     $validationRules['sku'] = [$sku, 'required|unique:Product'];
                 }
             } else {
-                $validationRules["id"] = [$id, "required|numeric|unique:Product"];
+                $validationRules["id"] = [$id, "required|numeric|unique:Product|nonNegative"];
                 $validationRules['sku'] = [$sku, 'required|unique:Product'];
             }
         } else {
@@ -78,17 +78,17 @@ class ProductController extends Controller implements ProductInterface
         // Check product type to add validation rules for each type
         if ($productType == 'furniture') {
             $validationRules += [
-                'height' => [$height, 'required'],
-                'width' => [$width, 'required'],
-                'length' => [$length, 'required'],
+                'height' => [$height, 'required|nonNegative'],
+                'width' => [$width, 'required|nonNegative'],
+                'length' => [$length, 'required|nonNegative'],
             ];
         } elseif ($productType == 'dvd') {
             $validationRules += [
-                'size' => [$dvdSize, 'required'],
+                'size' => [$dvdSize, 'required|nonNegative'],
             ];
         } elseif ($productType == 'book') {
             $validationRules += [
-                'weight' => [$weight, 'required'],
+                'weight' => [$weight, 'required|nonNegative'],
             ];
         }
         // Validate request data and set errors if exists with Validation class
@@ -186,6 +186,7 @@ class ProductController extends Controller implements ProductInterface
             $product->updateRow($request);
             // Set success message and redirect to homepage
             header('Content-type: application/json');
+            $_SESSION['success'] = 'Product updated successfully';
             echo json_encode(['status' => 'success', 'message' => "Product updated successfully"]);
         }
     }
