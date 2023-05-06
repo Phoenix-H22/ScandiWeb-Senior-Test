@@ -147,7 +147,7 @@ class ProductController extends Controller implements ProductInterface
         $product = $product->find($id["id"]);
         // Check if product exists or not and redirect to homepage if not exists
         if (!$product) {
-            $_SESSION['errors'] = 'Product not found';
+            $_SESSION['errors'] = ['Product not found'];
             $this->redirect('/');
         }
         // Check product type and set product properties to render it in edit page

@@ -35,9 +35,13 @@
     <?php if (isset($_SESSION['errors']) && !empty($_SESSION['errors'])) : ?>
         <div class="alert alert-danger" role="alert">
             <?php foreach ($_SESSION['errors'] as $error) : ?>
-                <?php foreach ($error as $message) : ?>
-                    <p><?= $message; ?></p>
-                <?php endforeach; ?>
+                <?php if(is_array($error)) : ?>
+                    <?php foreach ($error as $message) : ?>
+                        <p><?= $message; ?></p>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <p><?= $error; ?></p>
+                <?php endif; ?>
             <?php endforeach; ?>
         </div>
         <?php unset($_SESSION['errors']); ?>
