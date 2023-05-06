@@ -59,7 +59,7 @@ You will Need To configure your database connection in app/config.php file then 
 You won't be able to run the project if server root isn't inside public folder
 
 ## Or
-@ -48,7 +29,7 @@ Just Visit https://scandiweb.phoenixtechs.tech/ to see project live and you can
+Just Visit https://scandiweb.phoenixtechs.tech/ to see project live and you can
 
 ## Composer Packages
 
