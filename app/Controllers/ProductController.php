@@ -19,7 +19,7 @@ class ProductController extends Controller implements ProductInterface
      *
      * @return void
      */
-    public function show() : void
+    public function show(): void
     {
         $products = new Product();
         $this->render('Product/index', $products->all());
@@ -29,7 +29,7 @@ class ProductController extends Controller implements ProductInterface
      *
      * @return void
      */
-    public function add() : void
+    public function add(): void
     {
         $this->render('Product/add');
     }
@@ -40,69 +40,81 @@ class ProductController extends Controller implements ProductInterface
      * @param bool $isUpdate
      * @return true or json with errors
      */
-    public function validateProductRequest($request, $isUpdate = false) : bool
-    {
-        // Intialize variables
-        $id = $request['id'] ?? null;
-        $sku = $request['sku'] ?? null;
-        $price = $request['price'] ?? null;
-        $productType = $request['productType'] ?? "";
-        $name = $request['name'] ?? null;
-        $height = $request['height'] ?? null;
-        $width = $request['width'] ?? null;
-        $length = $request['length'] ?? null;
-        $dvdSize = $request['size'] ?? null;
-        $weight = $request['weight'] ?? null;
+    public function validateProductRequest($request, $isUpdate = false): bool
+{
+    // Initialize variables
+    $id = $request['id'] ?? null;
+    $sku = $request['sku'] ?? null;
+    $price = $request['price'] ?? null;
+    $productType = $request['productType'] ?? "";
+    $name = $request['name'] ?? null;
+    $height = $request['height'] ?? null;
+    $width = $request['width'] ?? null;
+    $length = $request['length'] ?? null;
+    $dvdSize = $request['size'] ?? null;
+    $weight = $request['weight'] ?? null;
 
-        $validationRules = [
-            'productType' => [$productType, 'required'],
-            'name' => [$name, 'required'],
-            'price' => [$price, 'required|numeric|nonNegative'],
-        ];
-        // Check if the request is update or create
-        if ($isUpdate) {
-            $model = 'App\\Models\\' . ucfirst($productType);
-            $instance = new $model();
-            $result = $instance->select("sku")->where("id", $id)->get();
-            if ($result) {
-                if ($result[0]['sku'] != $sku) {
-                    $validationRules['sku'] = [$sku, 'required|unique:Product'];
-                }
-            } else {
-                $validationRules["id"] = [$id, "required|numeric|unique:Product|nonNegative"];
-                $validationRules['sku'] = [$sku, 'required|unique:Product'];
+    // Define validation rules lookup table
+    $validationRulesLookup = [
+        'furniture' => [
+            'height' => [$height, 'required|nonNegative'],
+            'width' => [$width, 'required|nonNegative'],
+            'length' => [$length, 'required|nonNegative'],
+        ],
+        'dvd' => [
+            'size' => [$dvdSize, 'required|nonNegative'],
+        ],
+        'book' => [
+            'weight' => [$weight, 'required|nonNegative'],
+        ],
+    ];
+
+    // Initialize validation rules array
+    $validationRules = [
+        'productType' => [$productType, 'required'],
+        'name' => [$name, 'required'],
+        'price' => [$price, 'required|numeric|nonNegative'],
+        'sku' => [$sku, 'required'],
+    ];
+
+    // Add specific validation rules based on product type from the lookup table
+    if (array_key_exists($productType, $validationRulesLookup)) {
+        $validationRules += $validationRulesLookup[$productType];
+    }
+
+    // Add additional rules for update request
+    if ($isUpdate) {
+        $model = 'App\\Models\\' . ucfirst($productType);
+        $instance = new $model();
+        $result = $instance->select("sku")->where("id", $id)->get();
+        if ($result) {
+            if ($result[0]['sku'] != $sku) {
+                $validationRules['sku'][] = 'unique:Product';
             }
         } else {
-            $validationRules['sku'] = [$sku, 'required|unique:Product'];
+            $validationRules["id"] = [$id, "required|numeric|unique:Product|nonNegative"];
+            $validationRules['sku'][] = 'unique:Product';
         }
-        // Check product type to add validation rules for each type
-        if ($productType == 'furniture') {
-            $validationRules += [
-                'height' => [$height, 'required|nonNegative'],
-                'width' => [$width, 'required|nonNegative'],
-                'length' => [$length, 'required|nonNegative'],
-            ];
-        } elseif ($productType == 'dvd') {
-            $validationRules += [
-                'size' => [$dvdSize, 'required|nonNegative'],
-            ];
-        } elseif ($productType == 'book') {
-            $validationRules += [
-                'weight' => [$weight, 'required|nonNegative'],
-            ];
-        }
-        // Validate request data and set errors if exists with Validation class
-        Validation::validate($validationRules);
-        // Check if there is errors and return json response with errors if exists
-        if (!empty($_SESSION['errors'])) {
-            header('Content-type: application/json');
-            $_SESSION['errors'][0]['status'] = 'error';
-            echo json_encode($_SESSION['errors'][0]);
-            exit;
-        }
-        // Return true if there is no errors
-        return true;
+    } else {
+        $validationRules['sku'][] = 'unique:Product';
     }
+
+    // Validate request data and set errors if they exist with Validation class
+    Validation::validate($validationRules);
+
+    // Check if there are errors and return JSON response with errors if they exist
+    if (!empty($_SESSION['errors'])) {
+        header('Content-type: application/json');
+        $_SESSION['errors'][0]['status'] = 'error';
+        echo json_encode($_SESSION['errors'][0]);
+        unset($_SESSION['errors']);
+        exit;
+    }
+
+    // Return true if there are no errors
+    return true;
+}
+
     /**
      * Create method is responsible for handling requests to create a new product.
      *
@@ -111,7 +123,7 @@ class ProductController extends Controller implements ProductInterface
      * @throws \Error If there was an error adding the product to the database.
      */
 
-    public function create() : void
+    public function create(): void
     {
         // Initialize errors array
         $_SESSION['errors'] = [];
@@ -139,30 +151,48 @@ class ProductController extends Controller implements ProductInterface
      * @throws \Error If there was an error finding the product in the database.
      */
 
-    public function edit($id) : void
-    {   
-        // Get product by id
-        $id = Validation::filter($id);
-        $product = new Product();
-        $product = $product->find($id["id"]);
-        // Check if product exists or not and redirect to homepage if not exists
-        if (!$product) {
+     public function edit($id): void
+     {
+         // Get product by id
+         $id = Validation::filter($id);
+         $product = new Product();
+         $product = $product->find($id["id"]);
+         // Check if product exists or not and redirect to homepage if not exists
+         $productExists = (!($product == null));
+         if (!$productExists) {
             $_SESSION['errors'] = ['Product not found'];
-            $this->redirect('/');
-        }
-        // Check product type and set product properties to render it in edit page
-        if ($product["type"] == "furniture") {
-            $product["height"] = (int)filter_var(trim(explode(":", explode("x", $product["property"])[0])[1]), FILTER_SANITIZE_NUMBER_INT);
-            $product["width"] = (int)filter_var(explode("x", $product["property"])[1], FILTER_SANITIZE_NUMBER_INT);
-            $product["length"] = (int)filter_var(explode("x", $product["property"])[2], FILTER_SANITIZE_NUMBER_INT);
-        } elseif ($product["type"] == "dvd") {
-            $product["size"] = (int)filter_var($product["property"], FILTER_SANITIZE_NUMBER_INT);
-        } elseif ($product["type"] == "book") {
-            $product["weight"] = (int)filter_var($product["property"], FILTER_SANITIZE_NUMBER_INT);
-        }
-        // Render edit page
-        $this->render('Product/edit', $product);
-    }
+             $this->redirect('/');
+         }
+         $product = array_filter($product, function ($key) {
+             return !is_int($key);
+         }, ARRAY_FILTER_USE_KEY);
+
+         // Check product type and set product properties to render it in edit page
+         $productType = $productExists ? $product["type"] : null;
+         $productProperties = $productExists ? $product["property"] : null;
+         // Mapping product types to corresponding property handlers
+         $propertyHandlers = [
+             "furniture" => function () use (&$product, $productProperties) {
+                 $product["height"] = (int)filter_var(trim(explode(":", explode("x", $productProperties)[0])[1]), FILTER_SANITIZE_NUMBER_INT);
+                 $product["width"] = (int)filter_var(explode("x", $productProperties)[1], FILTER_SANITIZE_NUMBER_INT);
+                 $product["length"] = (int)filter_var(explode("x", $productProperties)[2], FILTER_SANITIZE_NUMBER_INT);
+             },
+             "dvd" => function () use (&$product, $productProperties) {
+                 $product["size"] = (int)filter_var($productProperties, FILTER_SANITIZE_NUMBER_INT);
+             },
+             "book" => function () use (&$product, $productProperties) {
+                 $product["weight"] = (int)filter_var($productProperties, FILTER_SANITIZE_NUMBER_INT);
+             }
+         ];
+
+         // Execute the corresponding property handler based on the product type
+         if (array_key_exists($productType, $propertyHandlers)) {
+             $propertyHandlers[$productType]();
+         }
+         // Render edit page
+         $this->render('Product/edit', $product);
+     }
+
     /**
      * Update method is responsible for handling requests to update an existing product.
      *
@@ -171,7 +201,7 @@ class ProductController extends Controller implements ProductInterface
      * @throws \Error If there was an error updating the product in the database.
      */
 
-    public function update() : void
+    public function update(): void
     {
         // Initialize errors array
         $_SESSION['errors'] = [];
@@ -198,7 +228,7 @@ class ProductController extends Controller implements ProductInterface
      * @throws \Error If there was an error deleting the product from the database.
      */
 
-    public function delete() : void
+    public function delete(): void
     {
         $request = Validation::filter($_REQUEST);
         $product = new Product();
