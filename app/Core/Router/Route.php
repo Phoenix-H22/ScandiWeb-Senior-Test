@@ -44,10 +44,13 @@ class Route
             die();
         }
 
+        // Convert associative $_REQUEST array into an indexed array
+        $args = array_values($_REQUEST);
 
-        // Call the method with parameters
-        call_user_func_array([$classInstance, $method], $_REQUEST);
+        // Call the method with the arguments
+        call_user_func_array([$classInstance, $method], $args);
     }
+
 
     /**
      * match method is responsible for matching the url with the routes
