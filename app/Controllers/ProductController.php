@@ -128,16 +128,22 @@ class ProductController extends Controller implements ProductInterface
         // Initialize errors array
         $_SESSION['errors'] = [];
         // Get request variables
-        $request =  Validation::filter($_REQUEST);
-        $productType = $request['productType'];
-        // Validate request
-        if($this->validateProductRequest($request)) {
-            // Add product
-            $product = $this->model(ucfirst($productType));
-            $product->add($request);
-            // Set success message and return json response with success status
+        try {
+            $request =  Validation::filter($_REQUEST);
+            $productType = $request['productType'];
+            // Validate request
+            if($this->validateProductRequest($request)) {
+                // Add product
+                $product = $this->model(ucfirst($productType));
+                $product->add($request);
+                // Set success message and return json response with success status
+                header('Content-type: application/json');
+                echo json_encode(['status' => 'success', 'message' => "Product added successfully"]);
+            }
+        }catch(\Exception $e){
+            // Set error message and return json response with error status
             header('Content-type: application/json');
-            echo json_encode(['status' => 'success', 'message' => "Product added successfully"]);
+            echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
         }
 
     }
