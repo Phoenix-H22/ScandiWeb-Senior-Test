@@ -8,7 +8,11 @@ define('ROOT', dirname(__DIR__));
 $scriptDir = dirname($_SERVER['SCRIPT_NAME']);
 $baseDir = ($scriptDir === '/' || $scriptDir === '\\') ? '' : $scriptDir;
 
-define('BASE_URL', rtrim($_SERVER['REQUEST_SCHEME'] ?? $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://' . $_SERVER['HTTP_HOST'], '/') . $baseDir . '/');
+$scheme = $_SERVER['REQUEST_SCHEME'] ?? ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? 'http'); // Default to 'http' if neither exists
+$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+$scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+$baseDir = ($scriptDir === '/' || $scriptDir === '\\') ? '' : $scriptDir;
 
+define('BASE_URL', rtrim($scheme . '://' . $host, '/') . $baseDir . '/');
 
 require_once dirname(__DIR__) . '/routes/web.php';
