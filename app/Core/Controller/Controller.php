@@ -20,10 +20,12 @@ abstract class Controller
      */
     public function render(string $view, array $data = null): void
     {
-        if (file_exists(ROOT . '/views/' . $view . '.render.php')) {
-            require ROOT . '/views/' . $view . '.render.php';
-        } else {
-            Errors::E500($_REQUEST);
+        try {
+            if (file_exists(ROOT . '/views/' . $view . '.render.php')) {
+                require ROOT . '/views/' . $view . '.render.php';
+            }
+        }catch (\Exception $e) {
+            Errors::E500($_REQUEST, $e->getMessage());
         }
     }
     /**
