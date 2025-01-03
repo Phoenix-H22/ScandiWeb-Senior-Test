@@ -40,7 +40,7 @@ class Database
             $options = [PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC];
             return $this->pdo = new PDO($connect, $this->username, $this->password, $options);
         } catch (PDOException $message) {
-            Errors::E500();
+            Errors::E500($_REQUEST);
             return die('Database Connection Error: ' . $message->getMessage() . ' (check database connection ==> config / app.php)');
         }
     }

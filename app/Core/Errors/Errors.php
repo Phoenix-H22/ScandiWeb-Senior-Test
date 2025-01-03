@@ -20,9 +20,10 @@ class Errors
      *
      * @return void
      */
-    public static function E500(): void
+    public static function E500($request): void
     {
         http_response_code(500);
+        var_dump($request);
         require ROOT . '/views/errors/500.render.php';
         die();
     }

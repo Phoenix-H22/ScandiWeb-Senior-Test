@@ -26,13 +26,13 @@ class Route
         //add the default namespace to the controller
         $class = "App\\Controllers\\".$callable['class'];
         if (!class_exists($class)) {
-            Errors::E500();
+            Errors::E500($_REQUEST);
         }
         
         $method = $callable['method'];
 
         if (!is_callable($class, $method)) {
-            Errors::E500();
+            Errors::E500($_REQUEST);
         }
         $class = new $class();
         //run the method with the params if they exist

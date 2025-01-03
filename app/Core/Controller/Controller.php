@@ -3,6 +3,8 @@
 namespace App\Core\Controller;
 
 use App\Core\Errors\Errors;
+use App\Models\Dvd;
+
 /**
  * abstract class Controller is responsible for creating a contract for controllers
  */
@@ -21,7 +23,7 @@ abstract class Controller
         if (file_exists(ROOT . '/views/' . $view . '.render.php')) {
             require ROOT . '/views/' . $view . '.render.php';
         } else {
-            Errors::E500();
+            Errors::E500($_REQUEST);
         }
     }
     /**
@@ -46,6 +48,6 @@ abstract class Controller
     public function model(string $modelName): object
     {
         $model = 'App\\Models\\' . $modelName;
-        return new $model();
+        return new Dvd();
     }
 }
