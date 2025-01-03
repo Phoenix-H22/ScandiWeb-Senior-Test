@@ -151,12 +151,12 @@ class ProductController extends Controller implements ProductInterface
      * @throws \Error If there was an error finding the product in the database.
      */
 
-     public function edit($id): void
+     public function edit($id = null): void
      {
          // Get product by id
-         $id = Validation::filter($id);
+         $id = Validation::filter([$id]);
          $product = new Product();
-         $product = $product->find($id["id"]);
+         $product = $product->find($id[0]);
          // Check if product exists or not and redirect to homepage if not exists
          $productExists = (!($product == null));
          if (!$productExists) {

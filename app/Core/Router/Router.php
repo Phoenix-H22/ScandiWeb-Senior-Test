@@ -50,9 +50,9 @@ trait Router
      */
     public static function put($url, $class, $method)
     {
-        self::$map['post'][$url] = [
-            'class'=>$class,
-            'method'=>$method
+        self::$map['put'][$url] = [
+            'class' => $class,
+            'method' => $method,
         ];
     }
     /**
@@ -65,9 +65,9 @@ trait Router
      */
     public static function delete($url, $class, $method)
     {
-        self::$map['post'][$url] = [
-            'class'=>$class,
-            'method'=>$method
+        self::$map['delete'][$url] = [
+            'class' => $class,
+            'method' => $method,
         ];
     }
     /**

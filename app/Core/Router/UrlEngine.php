@@ -14,14 +14,16 @@ trait UrlEngine
      */
     public function method()
     {
-        if($_SERVER['REQUEST_METHOD'] == 'PUT'){
-            return 'post';
-        }else if($_SERVER['REQUEST_METHOD'] == 'DELETE'){
-            return 'post';
-        }else{
+        // Adjust request methods to match actual HTTP methods
+        if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
+            return 'put';
+        } elseif ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+            return 'delete';
+        } else {
             return strtolower($_SERVER['REQUEST_METHOD']);
         }
     }
+
     /**
      * path method is responsible for getting the request path
      *
@@ -30,17 +32,17 @@ trait UrlEngine
 
     public function path()
     {
-        if($_SERVER['REQUEST_URI']!= '/'){
-        $path = $_SERVER['REQUEST_URI'];
-        $path = explode("/", $path);
-        $path = array_filter($path);
-        $path = array_slice($path, 0);
-        $path = "/".$path[0];
-        }else{
-            $path = '/';
+        $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+        $baseDir = '/ScandiWeb-Senior-Test/public';
+        if (strpos($path, $baseDir) === 0) {
+            $path = substr($path, strlen($baseDir));
         }
-        return $path;
+        $resolvedPath = $path ?: '/';
+
+        return $resolvedPath;
     }
+
     /**
      * params method is responsible for getting the request params
      *
@@ -62,5 +64,5 @@ trait UrlEngine
         }
         return $params;
     }
-    
+
 }

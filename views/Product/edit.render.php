@@ -18,7 +18,7 @@
         <div class="col header-right">
             <div class="float-end">
                 <a class="btn btn-primary" id="submit-btn">Save</a>
-                <a class="btn btn-secondary" href="/">Cancel</a>
+                <a class="btn btn-secondary" href="<?= BASE_URL ?>">Cancel</a>
             </div>
         </div>
     </div>

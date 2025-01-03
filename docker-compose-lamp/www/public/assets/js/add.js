@@ -92,7 +92,11 @@ $(document).ready(function() {
           } else {
             alert('Something went wrong. Please, try again later.');
           }
+        },
+        error: function (request, status, error) {
+          alert(request.responseText);
         }
+      
       });
     });
   });

@@ -85,7 +85,7 @@ class Validation extends Controller
  * @param array $data
  * @return array
  */
-public static function filter(array $data)
+public static function filter(array $data): array
 {
     $filteredData = [];
 
